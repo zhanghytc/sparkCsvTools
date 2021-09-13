@@ -11,7 +11,6 @@ class HiveProcessor(data: DataFrame) extends Processor {
 
   override def process(): DataFrame = {
     LOG.info("begin to execute HiveProcessor")
-    data.show(100)
     data
   }
 }

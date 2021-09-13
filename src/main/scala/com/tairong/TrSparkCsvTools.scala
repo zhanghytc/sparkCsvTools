@@ -17,7 +17,7 @@ object TrSparkCsvTools {
 
   def main(args: Array[String]): Unit = {
     val PROGRAM_NAME = "TrSparkCsvTools"
-    val options      = TrConfig.parser(args, PROGRAM_NAME)
+    val options = TrConfig.parser(args, PROGRAM_NAME)
     val c: Argument = options match {
       case Some(config) => config
       case _ =>
@@ -27,7 +27,7 @@ object TrSparkCsvTools {
     val configs: Configs = TrConfig.parse(new File(c.config))
 
     //    val spark = TrSparkConf.createSparkContext(appName,configs)
-    val spark = TrSparkConf.createSparkSession(c,configs,PROGRAM_NAME)
+    val spark = TrSparkConf.createSparkSession(c, configs, PROGRAM_NAME)
     println(s"configs: $configs")
     println(s"configs.tagsConfig: ${configs.tagsConfig}")
     LOG.info(s"configs: $configs")
@@ -45,9 +45,9 @@ object TrSparkCsvTools {
   /**
    * Create data source for different data type and run
    *
-   * @param session The Spark Session.
-   * @param config  The TagConfigEntry.
-   * @param trContext: TrContext
+   * @param session   The Spark Session.
+   * @param config    The TagConfigEntry.
+   * @param trContext : TrContext
    * @return
    */
   private[this] def run(session: SparkSession,
@@ -67,8 +67,8 @@ object TrSparkCsvTools {
         session.sql(s"use $database")
         LOG.info(s"""Loading from Hive database $database """)
         hiveConfig.tableNames.foreach(tableName => {
-          val reader = new HiveReader(session, Array(database,tableName).mkString(".")).read()
-          val runner = new HiveFlowStage(reader,config,tableName)
+          val reader = new HiveReader(session, Array(database, tableName).mkString(".")).read()
+          val runner = new HiveFlowStage(reader, config, tableName)
           runner.run_(trContext)
         })
       case _ => {

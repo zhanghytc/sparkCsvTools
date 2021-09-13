@@ -47,7 +47,7 @@ object HDFSUtils {
   }
 
   def getContent(path: String): String = {
-    val system      = getFileSystem()
+    val system = getFileSystem()
     val inputStream = system.open(new Path(path))
     try {
       Source.fromInputStream(inputStream).mkString
@@ -59,7 +59,7 @@ object HDFSUtils {
   def saveContent(path: String,
                   content: String,
                   charset: Charset = Charset.defaultCharset()): Unit = {
-    val system       = getFileSystem()
+    val system = getFileSystem()
     val outputStream = system.create(new Path(path))
     try {
       outputStream.write(content.getBytes(charset))
@@ -77,8 +77,8 @@ object HDFSUtils {
     } catch {
       case e: Throwable =>
         LOG.warn("check for empty local file error, but you can ignore this check error. " +
-                   "If there is empty  file in your hdfs, please delete it manually",
-                 e)
+          "If there is empty  file in your hdfs, please delete it manually",
+          e)
     }
     val system = getFileSystem(namenode)
     try {
@@ -88,7 +88,7 @@ object HDFSUtils {
     }
   }
 
-  def downLoad(srcPath:String,targetPath:String,namenode: String = null): Unit = {
+  def downLoad(srcPath: String, targetPath: String, namenode: String = null): Unit = {
     LOG.info(s"begin to download csv files from $srcPath to $targetPath")
     val src = new Path(srcPath)
     val dst = new Path(targetPath)
@@ -111,14 +111,14 @@ object HDFSUtils {
     }
   }
 
-  def delete(file:String,namenode: String = null) = {
+  def delete(file: String, namenode: String = null) = {
     val system = getFileSystem(namenode)
-    if(system.exists(new Path(file))){
-      system.delete(new Path(file),true)
+    if (system.exists(new Path(file))) {
+      system.delete(new Path(file), true)
     }
   }
 
-  def create(path:String,namenode: String = null) = {
+  def create(path: String, namenode: String = null) = {
     try {
       val system = getFileSystem(namenode)
       if (!system.exists(new Path(path))) {

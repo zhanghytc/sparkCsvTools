@@ -6,7 +6,7 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
  * ServerBaseReader is the abstract class of
  * It include a spark session and a sentence which will sent to service.
  *
- * @param session  Sparksession
+ * @param session   Sparksession
  * @param tableName hive table name
  */
 abstract class ServerBaseReader(val session: SparkSession, val tableName: String)
